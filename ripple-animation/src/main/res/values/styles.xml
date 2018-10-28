@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AutoButton">
         <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
         <item name="colorButtonNormal">?attr/colorAccent</item>
     </style>
+    <!--clolorButtonNormal 就是默认状态下的背景(无需再设置 background )。
+    这样就会保持按钮默认的点击效果。-->
 </resources>

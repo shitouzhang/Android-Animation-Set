@@ -1,11 +1,13 @@
 package com.ocnyang.androidanimationset;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.ocnyang.revealanimation.RevealAnimationActivity;
 import com.ocnyang.rippleanimation.TouchFeedbackActivity;
 import com.ocnyang.stateanimation.StateAnimationActivity;
 import com.ocnyang.transitionanimation.TransitionAnimationActivity;
+import com.ocnyang.transitionanimation.helper.TransitionHelper;
 import com.ocnyang.vectoranimation.VectorAnimationActivity;
 import com.ocnyang.viewanimation.ViewAnimationActivity;
 
@@ -82,9 +85,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                         mContext.startActivity(new Intent(mContext, RevealAnimationActivity.class));
                         break;
                     case 5:
-                        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(((MainActivity) mContext), null);
+//                        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat
+//                                .makeSceneTransitionAnimation(((MainActivity) mContext), (android.support.v4.util.Pair<View, String>) null);
                         Intent intent = new Intent(mContext, TransitionAnimationActivity.class);
-                        mContext.startActivity(intent, activityOptionsCompat.toBundle());
+//                        mContext.startActivity(intent, activityOptionsCompat.toBundle());
+                        mContext.startActivity(intent);
                         break;
                     case 6:
                         mContext.startActivity(new Intent(mContext, StateAnimationActivity.class));
@@ -93,7 +98,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                         mContext.startActivity(new Intent(mContext, VectorAnimationActivity.class));
                         break;
                     default:
-                        break;
+//                        break;
                 }
             }
         });

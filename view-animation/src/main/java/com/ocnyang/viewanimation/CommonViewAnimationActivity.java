@@ -97,6 +97,7 @@ public class CommonViewAnimationActivity extends AppCompatActivity {
 
     private Animation getAnimationSet(boolean fromXML) {
         if (fromXML) {
+            //加载XML动画
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.view_animation);
             return animation;
         } else {
@@ -128,17 +129,23 @@ public class CommonViewAnimationActivity extends AppCompatActivity {
     }
 
     private Animation getRotateAnimation() {
+        //旋转开始角度，正代表顺时针度数，负代表逆时针度数
+        //缩放起点X坐标（数值、百分数、百分数p，
+        // 譬如50表示以当前View左上角坐标加50px为初始点、
+        // 50%表示以当前View的左上角加上当前View宽高的50%做为初始点、
+        // 50%p表示以当前View的左上角加上父控件宽高的50%做为初始点）
         RotateAnimation rotateAnimation = new RotateAnimation(0f, 360f,
                 getWidth() / 2, getHeight() / 2);
         rotateAnimation.setDuration(2000);
         rotateAnimation.setRepeatCount(1);
-        rotateAnimation.setFillAfter(true);
-        rotateAnimation.setFillBefore(false);
+        rotateAnimation.setFillAfter(true);//控件动画结束时是否保持动画最后的状态
+        rotateAnimation.setFillBefore(false);//控件动画结束时是否还原到开始动画前的状态
         rotateAnimation.setRepeatMode(Animation.REVERSE);
         return rotateAnimation;
     }
 
     private Animation getScaleAnimation() {
+        //fromX 初始X轴缩放比例，1.0表示无变化 toX 结束X轴缩放比例
         ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 2f,
                 1f, 2f,
                 getWidth() / 2, getHeight() / 2);

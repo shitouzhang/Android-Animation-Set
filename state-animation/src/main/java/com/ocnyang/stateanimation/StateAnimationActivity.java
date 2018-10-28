@@ -18,7 +18,8 @@ public class StateAnimationActivity extends AppCompatActivity {
     }
 
     private void setStateListAnimator() {
-        StateListAnimator stateListAnimator = AnimatorInflater.loadStateListAnimator(this, R.animator.anim_view_state_change_2);
+        StateListAnimator stateListAnimator = AnimatorInflater.loadStateListAnimator(this,
+                R.animator.anim_view_state_change_2);
         findViewById(R.id.view_puppet2).setStateListAnimator(stateListAnimator);
     }
 

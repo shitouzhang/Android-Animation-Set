@@ -1,11 +1,14 @@
 package com.ocnyang.viewanimation;
 
+import android.animation.LayoutTransition;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.animation.AnimationUtils;
 
 public class ListViewAnimationActivity extends AppCompatActivity {
 
@@ -20,6 +23,10 @@ public class ListViewAnimationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         MyRecyclerViewAdapter adapter = new MyRecyclerViewAdapter(this, 10);
         recyclerView.setAdapter(adapter);
+//        LayoutTransition layoutTransition = new LayoutTransition();
+//        ObjectAnimator animator = ObjectAnimator.ofInt();
+//        layoutTransition.setAnimator(LayoutTransition.APPEARING, animator);
+//        recyclerView.setLayoutTransition(layoutTransition);
     }
 
     private void initToolbar() {

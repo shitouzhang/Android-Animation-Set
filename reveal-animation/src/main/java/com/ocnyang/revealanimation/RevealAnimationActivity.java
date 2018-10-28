@@ -26,7 +26,7 @@ public class RevealAnimationActivity extends AppCompatActivity {
         mPuppet = findViewById(R.id.view_puppet);
         flag = mPuppet.getVisibility() == View.VISIBLE;
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,6 +43,8 @@ public class RevealAnimationActivity extends AppCompatActivity {
 
         int[] vLocation = new int[2];
         fab.getLocationInWindow(vLocation);
+        // getMeasuredWidth()获取的是view原始的大小，也就是这个view在XML文件中配置或者是代码中设置的大小。
+        // getWidth（）获取的是这个view最终显示的大小，这个大小有可能等于原始的大小也有可能不等于原始大小。
         int centerX = vLocation[0] + fab.getWidth() / 2;
         int centerY = vLocation[1] + fab.getHeight() / 2;
 
@@ -50,6 +52,7 @@ public class RevealAnimationActivity extends AppCompatActivity {
         int hypotenuse = (int) Math.hypot(view.getWidth(), view.getHeight());
 
         if (flag) {
+            //创建揭露动画 ViewAnimationUtils.createCircularReveal
             final Animator circularReveal = ViewAnimationUtils.createCircularReveal(mPuppet, centerX, centerY, hypotenuse, 0);
             circularReveal.setDuration(2000);
             circularReveal.addListener(new Animator.AnimatorListener() {
@@ -118,6 +121,8 @@ public class RevealAnimationActivity extends AppCompatActivity {
         if (i == android.R.id.home) {
             finish();
         }else if (i == R.id.action_settings){
+            //揭露动画,可以用在 Activity 里面的 View 动画效果，也可以使用在 Activity 跳转过渡动画中
+            //一种是显示一组UI元素，另一种是隐藏一组UI元素
             startActivity(new Intent(RevealAnimationActivity.this,RevealEffectActivity.class));
         }
         return super.onOptionsItemSelected(item);

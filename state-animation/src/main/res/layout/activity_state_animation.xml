@@ -23,6 +23,8 @@
         android:layout_margin="15dp"
         android:background="@android:color/white"
         android:clickable="true"
+        android:text="stateListAnimator"
+        android:textAllCaps="true"
         android:stateListAnimator="@anim/anim_view_state_change"/>
 
     <TextView
@@ -32,6 +34,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="15dp"
         android:background="@android:color/white"
+        android:text="99999"
         android:clickable="true"/>
 
     <ImageView

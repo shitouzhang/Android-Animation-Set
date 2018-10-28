@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
         android:color="?colorAccent">
+    <!--上面的 item 是为了设置一个边界，其实它的作用就是为 View 绘制一个默认的背景。
+    并且如果有更复杂的需求，可以直接在 <item><shape/></item> 中绘制一个 shape-->
+    <!--添加边界-->
     <item>
         <shape android:shape="rectangle">
             <solid android:color="?attr/colorPrimary"/>

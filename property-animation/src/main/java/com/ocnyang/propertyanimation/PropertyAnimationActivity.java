@@ -51,9 +51,9 @@ public class PropertyAnimationActivity extends AppCompatActivity {
         if (i == android.R.id.home) {
             finish();
         } else if (i == R.id.action_do_byxml) {
-            doAnimation(getAnimationDrawable(false));
-        } else if (i == R.id.action_bycode) {
             doAnimation(getAnimationDrawable(true));
+        } else if (i == R.id.action_bycode) {
+            doAnimation(getAnimationDrawable(false));
         } else if (i == R.id.action_bycustom) {
             doAnimation(getValueAnimatorByCustom());
         } else if (i == R.id.action_byviewpropertyanimator) {
@@ -85,22 +85,25 @@ public class PropertyAnimationActivity extends AppCompatActivity {
     }
 
     /**
-     * use property animation by xml;
-     *
+     * 用XML表示的属性动画使用，需要通过 updateListener 里设置属性才会生效
      * @return
      */
     private Animator getAnimationByXml() {
+//        mPuppet.getHeight()
         final int height = mPuppet.getLayoutParams().height;
         final int width = mPuppet.getLayoutParams().width;
         AnimatorSet animatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.animatorset);
 
-        //ValueAnimator usage:add AnimatorUpdateListener;
+        //ValueAnimator属性动画中的时间驱动，管理着动画时间的开始、结束属性值，相应时间属性值计算方法等
+        //特别注意：ValueAnimator 只是动画计算管理驱动，设置了作用目标，但没有设置属性，需要通过 updateListener 里设置属性才会生效
         ArrayList<Animator> childAnimations = animatorSet.getChildAnimations();
         ((ValueAnimator) childAnimations.get(childAnimations.size() - 1))
                 .addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator valueAnimator) {
                         float animatedValue = (float) valueAnimator.getAnimatedValue();
+                        //   view.setXXX(value);  //必须通过这里设置属性值才有效
+                        //   view.mXXX = value;  //不需要setXXX属性方法
                         mPuppet.getLayoutParams().height = (int) (height * animatedValue);
                         mPuppet.getLayoutParams().width = (int) (width * animatedValue);
                         mPuppet.requestLayout();
@@ -108,12 +111,12 @@ public class PropertyAnimationActivity extends AppCompatActivity {
                 });
 
         animatorSet.setTarget(mPuppet);
+//        animatorSet.start();
         return animatorSet;
     }
 
     /**
-     * ObjectAnimator usage
-     *
+     * ObjectAnimator动画
      * @param b
      * @return
      */
@@ -139,13 +142,14 @@ public class PropertyAnimationActivity extends AppCompatActivity {
     }
 
     /**
-     * ObjectAnimator: You can also create multiple animations by PropertyValuesHolder.
-     * <p>
-     * ValueAnimator has the same method, but we don't use it that way. #ValueAnimator.ofPropertyValuesHolder()#
+     * PropertyValuesHolder 多属性动画同时工作管理类,同时修改多个属性
+     *
+     * ObjectAnimator.ofPropertyValuesHolder,ValueAnimator.ofPropertyValuesHolder()
      *
      * @return
      */
     public Animator getObjectAnimatorByPropertyValuesHolder() {
+        //背景变化,X轴360反转
         PropertyValuesHolder bgColorAnimator = PropertyValuesHolder.ofObject("backgroundColor",
                 new ArgbEvaluator(),
                 0xff009688, 0xff795548);
@@ -159,11 +163,10 @@ public class PropertyAnimationActivity extends AppCompatActivity {
     }
 
     /**
-     * ValueAnimator usage
+     * ValueAnimator 使用，设置了作用目标，但没有设置属性，需要通过 updateListener 里设置属性才会生效。
      *
      * @return
      */
-
     public ValueAnimator getValueAnimator() {
         final int height = mPuppet.getLayoutParams().height;
         final int width = mPuppet.getLayoutParams().width;
@@ -176,6 +179,8 @@ public class PropertyAnimationActivity extends AppCompatActivity {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float animatedValue = (float) valueAnimator.getAnimatedValue();
+//                view.setXXX(value);  //必须通过这里设置属性值才有效
+//                view.mXXX = value;  //不需要setXXX属性方法
                 mPuppet.getLayoutParams().height = (int) (height * animatedValue);
                 mPuppet.getLayoutParams().width = (int) (width * animatedValue);
                 mPuppet.requestLayout();
@@ -185,7 +190,7 @@ public class PropertyAnimationActivity extends AppCompatActivity {
     }
 
     /**
-     * AnimatorSet usage
+     * AnimatorSet 使用,可设置动画的时序关系，如同时播放、顺序播放或延迟播放
      *
      * @return
      */
@@ -215,8 +220,8 @@ public class PropertyAnimationActivity extends AppCompatActivity {
 // Advanced Usage (高级用法)--------------------------------------------------------------------------
 
     /**
-     * Custom Interpolator
-     * Custom Evaluator
+     * 自定义加速插值器 Interpolator
+     * 自定义计算一个属性值 Evaluator
      *
      * @return
      */
@@ -255,6 +260,7 @@ public class PropertyAnimationActivity extends AppCompatActivity {
 
     //ViewPropertyAnimator------------------------------------------------------------------------------
     private void doAnimatorByViewPropertyAnimator() {
+        //x轴旋转360 放大3
         ViewPropertyAnimator viewPropertyAnimator = mPuppet.animate()
                 .rotationX(360f)
                 .alpha(0.5f)
@@ -267,8 +273,9 @@ public class PropertyAnimationActivity extends AppCompatActivity {
     //LayoutAnimator--------------------------------------------------------------------------------
     private void doLayoutAnimator() {
         LayoutTransition layoutTransition = new LayoutTransition();
-
+        //APPEARING 当View出现或者添加的时候View出现的动画
         layoutTransition.setAnimator(LayoutTransition.APPEARING, getObjectAnimator(false));
+        //DISAPPEARING 当View消失或者隐藏的时候View消失的动画
         layoutTransition.setAnimator(LayoutTransition.DISAPPEARING, getObjectAnimator(true));
         layoutTransition.setDuration(2000);
 

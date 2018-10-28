@@ -21,7 +21,7 @@ public class SpeedUpInterpolator implements Interpolator {
 
     @Override
     public float getInterpolation(float v) {
-        //实现核心代码块
+        //实现核心代码块，计算x的y次方,其计算后是浮点数
         if (mFactor == 1.0f) {
             return v * v;
         } else {

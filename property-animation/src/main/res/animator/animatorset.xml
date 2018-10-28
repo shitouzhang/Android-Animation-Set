@@ -2,7 +2,7 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
      android:interpolator="@android:anim/accelerate_decelerate_interpolator"
      android:ordering="together">
-
+    <!--ObjectAnimator一个对象的一个属性动画-->
     <objectAnimator
         android:duration="3000"
         android:propertyName="backgroundColor"
@@ -11,7 +11,7 @@
         android:startOffset="0"
         android:valueFrom="?attr/colorAccent"
         android:valueTo="?attr/colorPrimary"/>
-
+    <!--rotationX控制相对于轴心旋转-->
     <objectAnimator
         android:duration="3000"
         android:propertyName="rotationX"
@@ -21,7 +21,7 @@
         android:valueFrom="0"
         android:valueTo="360"
         android:valueType="floatType"/>
-
+    <!--ValueAnimator在一个特定的时间里执行一个动画-->
     <animator
         android:duration="3000"
         android:repeatCount="1"

@@ -18,6 +18,9 @@ public class TouchFeedbackActivity extends AppCompatActivity {
         initPuppetRipple();
     }
 
+    /**
+     * 有边界的效果(代码设置)
+     */
     private void initPuppetRipple() {
         View view = findViewById(R.id.view_puppet1);
         int[] attrs = new int[]{R.attr.selectableItemBackground};
